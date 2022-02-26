@@ -36,8 +36,8 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Search" />
+                android:hint="Search"
+                android:inputType="textPersonName" />
 
             <ImageView
                 android:id="@+id/search"

@@ -34,10 +34,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Picasso.get().load(mResult.get(position).getMultimedia().getSrc())
-                .fit()
-                .centerCrop()
-                .into(holder.image);
+
+        if (mResult.get(position).getMultimedia() == null){
+            holder.image.setImageResource(R.drawable.nytlogo1);
+        }
+        else {
+            Picasso.get().load(mResult.get(position).getMultimedia().getSrc())
+                    .fit()
+                    .centerCrop()
+                    .into(holder.image);
+        }
         holder.nombre.setText(mResult.get(position).getDisplay_title());
         holder.director.setText(mResult.get(position).getByline());
         holder.headLine.setText(mResult.get(position).getHeadline());
@@ -51,8 +57,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 intent.putExtra("headLine", mResult.get(holder.getAdapterPosition()).getHeadline());
                 intent.putExtra("publicationDate", mResult.get(holder.getAdapterPosition()).getPublication_date());
                 intent.putExtra("desc", mResult.get(holder.getAdapterPosition()).getSummary_short());
-                intent.putExtra("url", mResult.get(holder.getAdapterPosition()).getMultimedia().getSrc());
-                mContext.startActivity(intent);
+                if(mResult.get(position).getMultimedia() != null){
+                    intent.putExtra("url", mResult.get(holder.getAdapterPosition()).getMultimedia().getSrc());
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.getApplicationContext().startActivity(intent);
             }
         });
 
