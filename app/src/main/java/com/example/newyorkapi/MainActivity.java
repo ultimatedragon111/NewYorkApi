@@ -77,11 +77,14 @@ public class MainActivity extends AppCompatActivity {
                     status.setAlpha(1);
                     status.setText("Status: " + status1);
                     numRecords.setText("Num records: " + num_results);
-                    JSONArray jsonArray = response.optJSONArray("results");
-                    results = Arrays.asList( new GsonBuilder().create().fromJson(jsonArray.toString(), Result[].class));
-                    MyAdapter myAdapter = new MyAdapter(results, getApplicationContext());
-                    recyclerView.setAdapter(myAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    if (!num_results.equals("0")){
+                        JSONArray jsonArray = response.optJSONArray("results");
+                        results = Arrays.asList( new GsonBuilder().create().fromJson(jsonArray.toString(), Result[].class));
+                        MyAdapter myAdapter = new MyAdapter(results, getApplicationContext());
+                        recyclerView.setAdapter(myAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    }
+
 
         }
         },new Response.ErrorListener() {
