@@ -1,5 +1,6 @@
 package com.example.newyorkapi;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return new MyViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         if (mResult.get(position).getMultimedia() == null){
             holder.image.setImageResource(R.drawable.nytlogo1);
@@ -60,6 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 if(mResult.get(position).getMultimedia() != null){
                     intent.putExtra("url", mResult.get(holder.getAdapterPosition()).getMultimedia().getSrc());
                 }
+                intent.putExtra("link", mResult.get(holder.getAdapterPosition()).getLink().getUrl());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.getApplicationContext().startActivity(intent);
             }
